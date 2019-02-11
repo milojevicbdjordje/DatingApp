@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DatingApp.API.Data;
+using DatingApp.API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,7 @@ namespace DatingApp.API.Controllers
         }
 
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetValues()
         {
@@ -55,6 +57,13 @@ namespace DatingApp.API.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+        [AllowAnonymous]
+        [HttpGet("getusers")]
+        public async Task<IActionResult> getAllUsers()
+        {
+            var users = await _context.Users.ToListAsync();
+            return Ok(users);
         }
     }
 }
