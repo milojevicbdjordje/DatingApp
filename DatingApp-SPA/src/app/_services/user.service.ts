@@ -16,18 +16,26 @@ const httpOptions = {
 export class UserService {
   baseUrl = environment.apiUrl;
 
-constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-getUsers(): Observable<User[]> {
-  return this.http.get<User[]>(this.baseUrl + 'users', httpOptions);
-}
+  getUsers(): Observable<User[]> {
+    return this.http.get<User[]>(this.baseUrl + 'users', httpOptions);
+  }
 
-getUser(id): Observable<User> {
-  return this.http.get<User>(this.baseUrl + 'users/' + id, httpOptions);
-}
+  getUser(id): Observable<User> {
+    return this.http.get<User>(this.baseUrl + 'users/' + id, httpOptions);
+  }
 
-updateUser(id: number, user: User) {
-  return this.http.put(this.baseUrl + 'users/' + id, user);
-}
+  updateUser(id: number, user: User) {
+    return this.http.put(this.baseUrl + 'users/' + id, user);
+  }
+
+  setMainPhoto(userId: number, id: number) {
+    return this.http.post(this.baseUrl + 'users/' + userId + '/photos/' + id + '/setMain', {});
+  }
+
+  deletePhoto(userId: number, id: number) {
+    return this.http.delete(this.baseUrl + 'users/' + userId + '/photos/' + id);
+  }
 
 }
