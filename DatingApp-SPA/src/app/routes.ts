@@ -10,6 +10,8 @@ import { Routes } from '@angular/router';
 import { MessagesComponent } from './messages/messages.component';
 import { MemberDetailResolver } from './_resolvers/member-detail.resolver';
 import { MemberEditResolver } from './_resolvers/member-edit.resolver';
+import { ListsResolver } from './_resolvers/list.resolver';
+
 
 
 export const appRoutes: Routes = [
@@ -21,10 +23,10 @@ export const appRoutes: Routes = [
         children: [
             { path: 'members', component: MemberListComponent, canActivate: [AuthGuard], resolve: {users: MemberListResolver}},
             { path: 'members/:id', component: MemberDetailComponent, resolve: {user: MemberDetailResolver}},
-            { path: 'member/edit', component: MemberEditComponent, resolve: {user: MemberEditResolver}, 
+            { path: 'member/edit', component: MemberEditComponent, resolve: {user: MemberEditResolver},
                                     canDeactivate: [PreventUnsavedChanges]},
             { path: 'messages', component: MessagesComponent },
-            { path: 'lists', component: ListsComponent }
+            { path: 'lists', component: ListsComponent, resolve: {users: ListsResolver} },
         ]
     },
     { path: '**', redirectTo: 'home', pathMatch: 'full'} /* anything beside home, members, messages and lists will go to home */
